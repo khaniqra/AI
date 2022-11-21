@@ -1,0 +1,68 @@
+import datetime
+import speech_recognition as sr
+import pyttsx3
+import webbrowser
+import datetime
+
+listener = sr.Recognizer()
+engine = pyttsx3.init()
+
+
+# to change the voice
+voices = engine.getProperty('voices')
+engine.setProperty('voice',voices[1].id)
+
+# FOR JARVIS TO SAY SOMETHING
+#engine.say('HI I AM JARVIS')
+#engine.say('HOW CAN I HELP YOU??')
+
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+
+
+
+def take_command():
+
+    try:
+        with sr.Microphone() as source:
+            talk("HI I AM JARVIS")
+            hour = int(datetime.datetime.now().hour)
+            if hour >= 0 and hour < 12:
+                talk("good morning")
+
+            elif hour >= 12 and hour < 18:
+                talk("good Afternoon!")
+
+            else:
+                talk("good Evening!")
+
+            talk('HI YASH, HOW CAN I HELP YOU??')
+            print('HI YASH, I AM lISTENING...')
+
+            voice = listener.listen(source)
+            command = listener.recognize_google(voice)
+            command = command.lower()  # type: ignore
+            if 'jarvis' in command:
+                command=command.replace('jarvis','')
+                print(command)
+    except:
+        pass
+    return command
+
+def run_jarvis():
+
+    command = take_command()
+    print(command)
+
+
+    
+
+    if 'data' in command:
+        webbrowser.open_new("https://cloud.boltiot.com/control?name=BOLT8024232")
+
+    elif 'stop' in command:
+        print('THANK YOU')
+        talk('NICE TALKING TO YOU,HAVE GREAT DAY SIR')
+        
+run_jarvis()
