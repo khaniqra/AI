@@ -1,0 +1,77 @@
+# n=int(input("Enter no of vertices: "))
+# cost =[[0*n]*n]
+# visited=[0]*n
+
+# def Prims(n,cost):
+#   min_cost=1
+#   e,u,v=1,1,1
+#   visited[1]=1
+#   while e<n:
+#     for i in range(1,n+1):
+#       min =999
+#       print(i)
+#       for j in range(1,n+1):
+#         if cost[i][j]< min :
+#           if visited[i]==0:
+#             continue
+#           else:
+#             min = cost[i][j]
+#             u=i
+#             v=j
+#             print("u=",u,"v=",v)
+#       if visited[u]==0 or visited[v] ==0:
+#         min_cost = min_cost+ min
+#         e=e+1
+#         print(e,"edge(",u,",",v,") & cost = ",min)
+#         visited[v]=1
+#       cost[u][v]=cost[v][u]=999
+#   print("\nMin cost : ",min_cost)  
+
+
+# print("Enter the cost matrix: ")
+# for i in range(1,n+1):
+#   for j in range(1,n+1):
+#     print("cost[",i,"]","[",j,"]")
+#     cost.append(int(input()))
+#     if cost[i][j]==0:
+#       cost[i][j]=999
+
+# Prims(n,cost)
+
+# Prim's Algorithm in Python
+
+ 
+# number of vertices in graph
+N = 5
+#creating graph by adjacency matrix method
+G = [[0, 19, 5, 0, 0],
+     [19, 0, 5, 9, 2],
+     [5, 5, 0, 1, 6],
+     [0, 9, 1, 0, 1],
+     [0, 2, 6, 1, 0]]
+
+selected_node = [0, 0, 0, 0, 0]
+
+no_edge = 0
+
+selected_node[0] = True
+
+# printing for edge and weight
+print("Edge : Weight\n")
+while (no_edge < N - 1):
+    
+    min = 9999999
+    a = 0
+    b = 0
+    for m in range(N):
+        if selected_node[m]:
+            for n in range(N):
+                if ((not selected_node[n]) and G[m][n]):  
+                    # not in selected and there is an edge
+                    if min > G[m][n]:
+                        min = G[m][n]
+                        a = m
+                        b = n
+    print(str(a) + "-" + str(b) + ":" + str(G[a][b]))
+    selected_node[b] = True
+    no_edge += 1
