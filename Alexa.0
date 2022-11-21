@@ -1,0 +1,48 @@
+#reqd packages
+# pywhatkit to search youtube
+# datetime2 to give current date & time
+# wikipedia to get information
+
+import pywhatkit
+import datetime2
+import wikipedia
+
+
+#main function to take our cmd/listen the cmd
+def take_cmd():
+  try:
+    print("listening....")
+    #after this st we wud speak/write our cmd
+    command = input()
+    command = command.lower()
+    if 'alexa' in command:
+      command = command.replace('alexa', '')
+      print(command)  #alexa prints the command again
+
+  except:
+    pass
+  return command
+
+
+#main func to print output
+def run_alexa():
+  command = take_cmd()
+  print(command)
+  if 'play' in command:
+    song = command.replace('play', '')
+    pywhatkit.playonyt(song)
+    #play the song on youtube
+  elif 'time' in command:  #to check current time
+    time = datetime2.datetime.now().strftime('%I:%M %p')
+    #to get time in am pm format use %p and %I for 12hrs format
+    print(time)
+  elif 'who is' or 'what is' in command:
+    person = command.replace('who is', '')
+    #to get the person naame only instead of whole st
+    info = wikipedia.summary(person, 2)
+    #gets information of that person from wikipedia
+    #2 specifies no of sent to be displayed
+    print(info)
+
+
+run_alexa()
